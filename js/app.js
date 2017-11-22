@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const cardPool=	['fa fa-diamond'
+let cardPool=	['fa fa-diamond'
 				,'fa fa-paper-plane-o'
 				,'fa fa-anchor'
 				,'fa fa-bolt'
@@ -17,7 +17,7 @@ const cardPool=	['fa fa-diamond'
 				,'fa fa-bicycle'
 				,'fa fa-paper-plane-o'
 				,'fa fa-cube'];
-let opendCard,opendCardClass='';
+let opendCard,opendCardClass='',moves=0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -39,7 +39,10 @@ function shuffle(array) {
 
     return array;
 }
-
+cardPool= shuffle(cardPool);
+for(let i=0;i<16;i++) {
+	$('.card').eq(i).prepend(`<i class='${cardPool[i]}'></i>`);
+};
 
 	/*
 	 * set up the event listener for a card. If a card is clicked:
@@ -61,7 +64,11 @@ function matchCard(card) {
 	card.attr("class","card match");
 }
 function closeCard(card) {
-	card.attr("class","card");
+	//card.slideToggle(800,function() {
+	//	card.attr("class","card");
+	//});
+	card.fadeOut(500,function() {card.attr({class:"card",style:""});})
+	
 	// opendCard='';
 }
 
@@ -87,16 +94,29 @@ $('.card').on('click',function() {
 		return;
 	}
 	openCard($(this));
+	$('.moves').text(++moves);
+	if(moves==20) {
+		$('.stars').children().eq(0).remove();
+	}
+	if(moves==25) {
+		$('.stars').children().eq(0).remove();
+	}
+	if(moves==30) {
+		$('.stars').children().eq(0).remove();
+	}
 	if(checkCard($(this))) {
-		matchCard($(this))
-		console.log(opendCard)
-		matchCard(opendCard)
-		console.log('相同')
+		matchCard($(this));
+		// console.log(opendCard)
+		matchCard(opendCard);
+		if($('.card.match').length===16) {
+			console.log('胜利')
+		}
+		//console.log('相同')
 		opendCard = undefined;
 		opendCardClass = '';
-		console.log(opendCard);	
+		//console.log(opendCard);	
 	}else if(opendCardClass === $(this).children().attr('class')) {
-		console.log('11')
+		//console.log('11')
 		return;
 	}else {
 		closeCard($(this));
@@ -104,5 +124,10 @@ $('.card').on('click',function() {
 		opendCard = undefined;
 		opendCardClass = '';
 	}
-	console.log('11')
+	//console.log('11')
 })
+
+$('.restart').on('click',function() {
+	location.reload(false);
+})
+
