@@ -17,7 +17,7 @@ let cardPool=	['fa fa-diamond'
 				,'fa fa-bicycle'
 				,'fa fa-paper-plane-o'
 				,'fa fa-cube'];
-let opendCard,opendCardClass='',moves=0;
+let opendCard,opendCardClass='',moves=0,second=0,start=false,t;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -54,9 +54,16 @@ for(let i=0;i<16;i++) {
 	 *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 	 *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 	 */
-
+function startTime()
+{
+	$('.second').text(second++);
+	t=setTimeout("startTime()",1000);
+}
 function openCard(card) {
 	card.attr("class","card open show");
+	$('.moves').text(++moves);
+	if (!start) {startTime();}
+	start = true;
 	// console.log(opendCard);
 	// console.log($("ul").eq(1).children().attr('class'))
 }
@@ -94,7 +101,6 @@ $('.card').on('click',function() {
 		return;
 	}
 	openCard($(this));
-	$('.moves').text(++moves);
 	if(moves==20) {
 		$('.stars').children().eq(0).remove();
 	}
@@ -109,6 +115,7 @@ $('.card').on('click',function() {
 		// console.log(opendCard)
 		matchCard(opendCard);
 		if($('.card.match').length===16) {
+			clearTimeout(t)
 			console.log('胜利')
 		}
 		//console.log('相同')
