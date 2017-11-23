@@ -92,6 +92,17 @@ function checkCard(card) {
 	return false;
 }
 
+function winning() {
+	if($('.card.match').length !== 16) {
+		return;
+	}
+	clearTimeout(t);
+	$('.popcontent').children('h1').text('恭喜过关');
+	$('.popcontent').children('h3').text(`总共用时${second}秒，获得${$('.stars').children().length}个星星。`);
+	// $($('.stars').children()).appendTo('.popcontent');
+	$('.pop').css('display','inherit');
+	// console.log('胜利')
+}
 
 
 $('.card').on('click',function() {
@@ -114,10 +125,7 @@ $('.card').on('click',function() {
 		matchCard($(this));
 		// console.log(opendCard)
 		matchCard(opendCard);
-		if($('.card.match').length===16) {
-			clearTimeout(t)
-			console.log('胜利')
-		}
+		winning();
 		//console.log('相同')
 		opendCard = undefined;
 		opendCardClass = '';
