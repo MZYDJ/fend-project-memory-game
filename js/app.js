@@ -39,7 +39,9 @@ function shuffle(array) {
 
     return array;
 }
+//利用上面的随机方程重新打乱卡片池排列。
 cardPool= shuffle(cardPool);
+//将重新排序的卡片池写入页面中
 for(let i=0;i<16;i++) {
 	$('.card').eq(i).prepend(`<i class='${cardPool[i]}'></i>`);
 };
@@ -54,11 +56,14 @@ for(let i=0;i<16;i++) {
 	 *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 	 *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 	 */
+//计时器，提供游戏计时；
 function startTime()
 {
 	$('.second').text(second++);
 	t=setTimeout("startTime()",1000);
 }
+
+//对点击正确的卡片进行反面显示卡片内容。
 function openCard(card) {
 	card.attr("class","card open show");
 	$('.moves').text(++moves);
@@ -67,9 +72,13 @@ function openCard(card) {
 	// console.log(opendCard);
 	// console.log($("ul").eq(1).children().attr('class'))
 }
+
+//对匹配到的卡片进行match操作
 function matchCard(card) {
 	card.attr("class","card match");
 }
+
+//对没有成功匹配的卡片进行翻转，隐藏卡片内容。
 function closeCard(card) {
 	//card.slideToggle(800,function() {
 	//	card.attr("class","card");
@@ -79,6 +88,7 @@ function closeCard(card) {
 	// opendCard='';
 }
 
+//检查之前是否有被翻开等待配对的卡片、检查现在翻开的卡片和之前翻开的是否一样。
 function checkCard(card) {
 	if (opendCardClass === '') {
 		// openCard(card);
@@ -92,6 +102,7 @@ function checkCard(card) {
 	return false;
 }
 
+//判断游戏是否结束，停止计时，展示胜利提示框。
 function winning() {
 	if($('.card.match').length !== 16) {
 		return;
@@ -104,7 +115,7 @@ function winning() {
 	// console.log('胜利')
 }
 
-
+//点击卡片，筛选是否为未翻开与未match的卡片，翻开卡片，检查步数更新星级，检查卡片是否匹配。
 $('.card').on('click',function() {
 	// $(this).attr("class","card open show");
 	if($(this).attr('class') !== 'card') {
@@ -142,6 +153,7 @@ $('.card').on('click',function() {
 	//console.log('11')
 })
 
+//点击重启按键刷新页面，游戏界面和胜利提示框相同。
 $('.restart').on('click',function() {
 	location.reload(false);
 })

@@ -1,21 +1,17 @@
-# Memory Game Project
+# 记忆力大挑战
 
-## Table of Contents
+## 目录
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [说明](#说明)
+* [声明](#声明)
 
-## Instructions
+## 说明
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+点击黑色方块开始游戏，翻出翻出两个相同方块将进行固定，所有方块固定之后游戏结束。
 
-To get started, open `js/app.js` and start building out the app's functionality
+所有交互内容位于`js/app.js` 文件，所有样式内容位于`css/app.css`
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 
-## Contributing
+## 声明
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
- GitHub Pages testing
+相关授权信息请查看[LICENSE.txt](/LICENSE.txt)
