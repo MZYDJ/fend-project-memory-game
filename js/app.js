@@ -57,17 +57,18 @@ for(let i=0;i<16;i++) {
 	 *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 	 */
 //计时器，提供游戏计时；
-function startTime()
-{
+function startTime() {
+	// with(!start) {
+	// 	t = window.setInterval($('.second').text(second++),1000);
+	// }
 	$('.second').text(second++);
-	t=setTimeout("startTime()",1000);
 }
 
 //对点击正确的卡片进行反面显示卡片内容。
 function openCard(card) {
 	card.attr("class","card open show");
-	$('.moves').text(++moves);
-	if (!start) {startTime();}
+	$('.moves').text(parseInt(++moves/2));
+	if (!start) {t = window.setInterval(startTime,1000);}
 	start = true;
 	// console.log(opendCard);
 	// console.log($("ul").eq(1).children().attr('class'))
@@ -107,7 +108,8 @@ function winning() {
 	if($('.card.match').length !== 16) {
 		return;
 	}
-	clearTimeout(t);
+	window.clearInterval(t);
+	// clearTimeout(t);
 	$('.popcontent').children('h1').text('恭喜过关');
 	$('.popcontent').children('h3').text(`总共用时${second}秒，获得${$('.stars').children().length}个星星。`);
 	// $($('.stars').children()).appendTo('.popcontent');
@@ -123,15 +125,20 @@ $('.card').on('click',function() {
 		return;
 	}
 	openCard($(this));
-	if(moves==20) {
-		$('.stars').children().eq(0).remove();
+	switch(moves) {
+		case 30:
+			$('.stars').children().eq(0).remove();
+			break;
+		case 50:
+			$('.stars').children().eq(0).remove();
+			break;
 	}
-	if(moves==25) {
-		$('.stars').children().eq(0).remove();
-	}
-	if(moves==30) {
-		$('.stars').children().eq(0).remove();
-	}
+	// if(moves==20) {
+	// 	$('.stars').children().eq(0).remove();
+	// }
+	// if(moves==25) {
+	// 	$('.stars').children().eq(0).remove();
+	// }
 	if(checkCard($(this))) {
 		matchCard($(this));
 		// console.log(opendCard)
