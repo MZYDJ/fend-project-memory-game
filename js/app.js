@@ -66,7 +66,15 @@ function startTime() {
 
 //对点击正确的卡片进行反面显示卡片内容。
 function openCard(card) {
-	card.attr("class","card open show");
+	card.attr("class","card open show")
+	/*card.animate('bounce','normal', function () {
+		card.attr("class","card open show");
+	})*/
+	const animationName='jello';
+	card.addClass('animated ' + animationName).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+            $(this).removeClass('animated ' + animationName);
+        });
+	// card.attr("class","card open show");
 	$('.moves').text(parseInt(++moves/2));
 	if (!start) {t = window.setInterval(startTime,1000);}
 	start = true;
